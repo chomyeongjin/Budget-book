@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>가계부</title>
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="bg" class="bg"></div>
@@ -18,9 +18,10 @@
     <form id="authForm" class="glass auth-card">
       <h1 class="beads" aria-label="BUDGET BOOK"></h1>
       <p class="muted">나만의 사진 달력 가계부</p>
-      <label>아이디<input id="authUser" autocomplete="username" required /></label>
+      <label>이메일<input id="authUser" type="email" autocomplete="email" required /></label>
       <label>비밀번호<input id="authPass" type="password" autocomplete="current-password" required /></label>
       <p id="authError" class="error"></p>
+      <p id="authInfo" class="info"></p>
       <button type="submit" id="authSubmit" class="btn primary">로그인</button>
       <button type="button" id="authToggle" class="link">계정이 없으신가요? 회원가입</button>
     </form>
@@ -120,6 +121,8 @@
     </aside>
   </main>
 
-  <script src="/app.js"></script>
+  <script src="vendor/supabase-2.118.0.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

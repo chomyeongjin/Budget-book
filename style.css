@@ -232,3 +232,5 @@ details[open] summary::after { content: '－'; }
   .day .amt { display: none; }
   .day.has-data::after { content: ''; position: absolute; bottom: 6px; left: 6px; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
 }
+.info { color: var(--income); font-size: 13px; margin: 0; }
+.info:empty { display: none; }
