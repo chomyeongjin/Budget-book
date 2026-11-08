@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>가계부</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div id="bg" class="bg"></div>
+
+  <!-- 로그인 화면 -->
+  <section id="auth" class="auth hidden">
+    <form id="authForm" class="glass auth-card">
+      <h1 class="beads" aria-label="BUDGET BOOK"></h1>
+      <p class="muted">나만의 사진 달력 가계부</p>
+      <label>아이디<input id="authUser" autocomplete="username" required /></label>
+      <label>비밀번호<input id="authPass" type="password" autocomplete="current-password" required /></label>
+      <p id="authError" class="error"></p>
+      <button type="submit" id="authSubmit" class="btn primary">로그인</button>
+      <button type="button" id="authToggle" class="link">계정이 없으신가요? 회원가입</button>
+    </form>
+  </section>
+
+  <!-- 메인 화면 -->
+  <main id="app" class="app hidden">
+    <section class="calendar-wrap">
+      <header class="cal-head">
+        <button class="nav-btn" id="prevMonth" aria-label="이전 달">‹</button>
+        <div class="cal-title">
+          <div id="monthBeads" class="beads"></div>
+          <div id="yearLabel" class="year"></div>
+        </div>
+        <button class="nav-btn" id="nextMonth" aria-label="다음 달">›</button>
+      </header>
+      <div class="weekdays">
+        <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span class="sat">S</span><span class="sun">S</span>
+      </div>
+      <div id="calendar" class="calendar"></div>
+      <div class="legend">
+        <span><i class="dot red"></i>하루 지출 10만원 이상</span>
+        <button class="link light" id="todayBtn">오늘로 이동</button>
+      </div>
+    </section>
+
+    <aside class="panel glass">
+      <div class="panel-top">
+        <span class="hello">👋 <b id="userName"></b>님</span>
+        <button class="link" id="logoutBtn">로그아웃</button>
+      </div>
+
+      <!-- 요약 -->
+      <div class="summary-tabs">
+        <button class="tab active" data-scope="day" id="tabDay">선택한 날</button>
+        <button class="tab" data-scope="month" id="tabMonth">이번 달</button>
+      </div>
+      <section id="summary" class="summary"></section>
+
+      <!-- 기록하기 -->
+      <section class="block">
+        <h2 id="formTitle">기록하기</h2>
+        <form id="entryForm" class="entry-form">
+          <div class="type-toggle">
+            <button type="button" class="seg active" data-type="expense">지출</button>
+            <button type="button" class="seg" data-type="income">수입</button>
+          </div>
+          <div class="row">
+            <label>날짜<input type="date" id="entryDate" required /></label>
+            <label>금액<input id="entryAmount" inputmode="numeric" placeholder="0" required /></label>
+          </div>
+          <label>카테고리<select id="entryCategory" required></select></label>
+          <label>메모<input id="entryMemo" maxlength="200" placeholder="예: 점심 김밥" /></label>
+          <p id="entryError" class="error"></p>
+          <div class="row">
+            <button type="submit" class="btn primary" id="entrySubmit">추가</button>
+            <button type="button" class="btn hidden" id="entryCancel">취소</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- 내역 -->
+      <section class="block">
+        <h2 id="listTitle">내역</h2>
+        <ul id="entryList" class="entry-list"></ul>
+      </section>
+
+      <!-- 카테고리 설정 -->
+      <details class="block" id="catDetails">
+        <summary><h2>카테고리 설정</h2></summary>
+        <form id="catForm" class="cat-form">
+          <input type="color" id="catColor" value="#e8835a" aria-label="색상" />
+          <input id="catName" maxlength="30" placeholder="새 카테고리 이름" required />
+          <select id="catType"><option value="expense">지출</option><option value="income">수입</option></select>
+          <button class="btn primary small" type="submit">추가</button>
+        </form>
+        <p id="catError" class="error"></p>
+        <ul id="catList" class="cat-list"></ul>
+      </details>
+
+      <!-- 배경 사진 -->
+      <details class="block">
+        <summary><h2>배경 사진</h2></summary>
+        <p class="muted small-text">이번 달 전용 사진을 넣거나, 모든 달에 쓸 기본 사진을 넣을 수 있어요.</p>
+        <div class="bg-row">
+          <span id="bgMonthLabel">이번 달 사진</span>
+          <label class="btn small">선택<input type="file" accept="image/*" id="bgMonthFile" hidden /></label>
+          <button class="btn small" id="bgMonthRemove">삭제</button>
+        </div>
+        <div class="bg-row">
+          <span>기본 사진</span>
+          <label class="btn small">선택<input type="file" accept="image/*" id="bgDefaultFile" hidden /></label>
+          <button class="btn small" id="bgDefaultRemove">삭제</button>
+        </div>
+        <p id="bgError" class="error"></p>
+      </details>
+    </aside>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

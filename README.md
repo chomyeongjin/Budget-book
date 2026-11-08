@@ -1,73 +1,44 @@
-# React + TypeScript + Vite
+# 📒 Budget Book — 사진 달력 가계부
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+큰 배경 사진 위에 달력이 올라가는 가계부 웹앱입니다. 맥북에서 Xcode 없이 **Node.js만 있으면** 바로 실행됩니다. (외부 라이브러리 설치 불필요)
 
-Currently, two official plugins are available:
+## 기능
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 🗓 **캘린더 형식** — 월요일 시작 달력, 날짜마다 수입/지출 합계 표시
+- 📊 **요약** — 선택한 날 / 이번 달 각각 *카테고리별 합산액 · 총 지출 · 총 수입 · 합계*
+- ✍️ **매일 기록** — 날짜를 눌러 지출/수입 추가, 수정, 삭제
+- 🏷 **카테고리 설정** — 이름·색상·지출/수입 구분을 직접 추가/수정/삭제
+- 🖼 **배경 사진** — 기본 사진 + 달마다 다른 사진 설정 가능
+- 🔴 **하루 지출 10만원 이상**인 날은 빨간색으로 표시
+- 🔐 **로그인 / 회원가입** — 계정별로 데이터 분리 (비밀번호는 scrypt 해시로 저장)
+- 📄 모든 기능이 **한 페이지**에서 동작
 
-## React Compiler
+## 맥북에서 실행하기
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Node.js 설치 (18 이상) — https://nodejs.org 에서 LTS 버전 설치, 또는 `brew install node`
+2. 터미널에서:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/chomyeongjin/budget-book.git
+cd budget-book
+npm start
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. 브라우저에서 http://localhost:3000 접속 → 회원가입 후 사용
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+> 데이터는 프로젝트 폴더의 `data/` 에 저장됩니다. (git에는 올라가지 않음) 백업하려면 이 폴더를 복사해 두세요.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 옵션
+
+- 포트 변경: `PORT=4000 npm start`
+- 같은 와이파이의 다른 기기(아이폰 등)에서 접속: `HOST=0.0.0.0 npm start` 후 `http://<맥 IP>:3000`
+
+## 파일 구조
+
+```
+server.js          # 서버 (로그인, 데이터 저장 API, 정적 파일)
+public/index.html  # 화면
+public/style.css   # 디자인
+public/app.js      # 달력/요약/기록/카테고리/배경 로직
+data/              # 실행 시 자동 생성 (사용자 데이터)
 ```
